@@ -21,6 +21,12 @@ writeOGR(obj=pol23, dsn ="agree23" , layer="agree23", driver="ESRI Shapefile")
 pol1<-rasterToPolygons(agree, fun=function(x){x==1})
 writeOGR(obj=pol1, dsn ="agree1" , layer="agree1", driver="ESRI Shapefile")
 
+
+####### FIG 1 FROM ZIKA & ERB
+zika<-raster("w001001.adf")
+crs(zika)<-robin
+writeRaster(zika, filename = "dryland_degradation.tif", overwrite=T)
+
 ###### HANSEN FOREST LOSS
 # Read Hansen 10*10 degrees granules
 
