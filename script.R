@@ -8,11 +8,15 @@ setwd("C:/Users/maximilien.gueze/OneDrive - United Nations Development Programme
 
 agree<-raster("number_datasets_agree.tif")  #number of databases in agreement
 stdev<-raster("degradation_st_dev_20km_percent.tif") #Standard deviation
+
 # Reproject into Robinson  (and save) 
 Worldrob<-"+proj=robin +lon_0=0 +x_0=0 +y_0=0 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"
 Sphererob<-"+proj=robin +lon_0=0 +x_0=0 +y_0=0 +a=6371000 +b=6371000 +units=m +no_defs "
 robin<-"+proj=robin +lon_0=0 +x_0=0 +y_0=0 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"   
+wgs84<-"+proj=longlat +datum=WGS84 +no_defs"
+
 agree<-projectRaster(agree, crs=robin)
+
 # colors: hatched in fine diagonal black lines for areas of high agreement (currently shown as dark green), stippled for medium agreement (light green); and blank for low or no agreement (current yellow and red)
 pol4<-rasterToPolygons(agree, fun=function(x){x==4})
 writeOGR(obj=pol4, dsn ="agree4" , layer="agree4", driver="ESRI Shapefile") 
@@ -25,6 +29,18 @@ writeOGR(obj=pol1, dsn ="agree1" , layer="agree1", driver="ESRI Shapefile")
 ####### FIG 1 FROM ZIKA & ERB
 zika<-raster("w001001.adf")
 crs(zika)<-robin
+writeRaster(zika, filename = "dryland_degradation.tif", overwrite=T)
+
+##Problems with extent
+zika<-raster("w001001.adf")
+crs(zika)<-wgs84
+zika<-projectRaster(zika, crs=robin)
+
+ext<-extent(-16945481, 16944519, -8673047, 8390393)
+ext<-extent(-15319020, 15322360, -8744735, 8745465)
+ext<-extent(-18000000, 18000000, -9000000, 9000000)
+
+zika@extent<-ext
 writeRaster(zika, filename = "dryland_degradation.tif", overwrite=T)
 
 ###### HANSEN FOREST LOSS
