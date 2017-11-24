@@ -22,10 +22,10 @@ agree<-projectRaster(agree, crs=robin)
 # colors: hatched in fine diagonal black lines for areas of high agreement (currently shown as dark green), stippled for medium agreement (light green); and blank for low or no agreement (current yellow and red)
 pol4<-rasterToPolygons(agree, fun=function(x){x==4})
 writeOGR(obj=pol4, dsn ="agree4" , layer="agree4", driver="ESRI Shapefile") 
-pol23<-rasterToPolygons(agree, fun=function(x){x==2| x==3})
-writeOGR(obj=pol23, dsn ="agree23" , layer="agree23", driver="ESRI Shapefile") 
-pol1<-rasterToPolygons(agree, fun=function(x){x==1})
-writeOGR(obj=pol1, dsn ="agree1" , layer="agree1", driver="ESRI Shapefile")
+pol3<-rasterToPolygons(agree, fun=function(x){x==3})
+writeOGR(obj=pol3, dsn ="agree3" , layer="agree3", driver="ESRI Shapefile") 
+pol12<-rasterToPolygons(agree, fun=function(x){x==1|x==2})
+writeOGR(obj=pol12, dsn ="agree12" , layer="agree12", driver="ESRI Shapefile")
 
 
 ####### FIG 1 FROM ZIKA & ERB
