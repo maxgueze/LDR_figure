@@ -4,6 +4,8 @@ library(rgdal)
 
 setwd("C:/Users/maximilien.gueze/OneDrive - United Nations Development Programme/Mapping/Figure for LDR SPM/R")
 
+
+
 ####### FIG 2 and 4 FROM GIBBS & SALMON
 
 agree<-raster("number_datasets_agree.tif")  #number of databases in agreement
@@ -31,7 +33,17 @@ zika<-raster("w001001.adf")
 crs(zika)<-wgs84
 zikaext<-projectExtent(zika, robin)
 zikaproj<-projectRaster(zika, zikaext)
-writeRaster(zika, filename = "dryland_degradation_proj.tif", overwrite=T)
+writeRaster(zikaproj, filename = "dryland_degradation_proj.tif", overwrite=T)
+
+
+
+####### Land Productivity Dynamics, 1999-2013, JRC-2014
+lpd<-raster("LPD.tif")
+lpdext<-projectExtent(lpd, robin)
+lpdproj<-projectRaster(lpd, lpdext)
+writeRaster(lpdproj, filename = "LPD_proj.tif", overwrite=T)
+
+
 
 ###### HANSEN FOREST LOSS
 # Read Hansen 10*10 degrees granules
